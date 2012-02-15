@@ -41,9 +41,6 @@
 + (NSString *)getHSBValueOf:(UIColor *)color; //rever.
 + (NSString *)getHEXValueOf:(UIColor *)color;
 
-//color from a library
-+ (UIColor *)colorWithName:(NSString *)colorString;
-
 //other methods
 + (UIColor *)randomColor;
 + (UIColor *)randomColorWithRed:(float)r;

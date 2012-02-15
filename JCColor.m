@@ -7,9 +7,6 @@
 
 #import "JCColor.h"
 
-#define COLOR_LIBRARY_FILENAME @"Color Library"
-#define COLOR_LIBRARY_VALUE_TYPE 3
-
 @implementation JCColor
 
 #pragma mark - Create color from values
@@ -53,35 +50,8 @@
 
 + (UIColor *)colorWithHSL:(NSString *)colorString 
 {
-    colorString = [colorString stringByReplacingOccurrencesOfString:@" " withString:@","];
+    return 0;
     
-    NSArray *hsl = [colorString componentsSeparatedByString:@","];
-    
-    /*
-     
-     *h = hh;
-     15     ll *= 2;
-     16     ss *= (ll <= 1) ? ll : 2 - ll;
-     17     *v = (ll + ss) / 2;
-     18     *s = (2 * ss) / (ll + ss);
-     
-     */
-    
-    float hh;
-    float ss;
-    float bb;
-    float h = [[hsl objectAtIndex:0] floatValue];
-    float s = [[hsl objectAtIndex:1] floatValue];
-    float l = [[hsl objectAtIndex:2] floatValue];
-    
-    h = hh;
-    l *= 2;
-    s *= (l <= 1) ? l : 2 - l;
-    bb = (l + s) / 2;
-    ss = (2 * s) / (l + s);
-    NSLog(@"%f %f %f",h, ss,bb);
-    
-    return [UIColor colorWithHue:h/360 saturation:ss/100 brightness:bb/100 alpha:1];
 }
 
 + (UIColor *)colorWithHEX:(NSString *)colorString; 
@@ -127,13 +97,7 @@
 
 + (UIColor *)addRGBColors:(NSArray *)colorsArray  
 {
-    
-    /*
-     
-    NOTE: method in beta stage.
-     
-    */
-    
+
     int c = 0;
     float r = 0;
     float g = 0;
@@ -265,40 +229,6 @@
 
 + (UIColor *)adjustColor:(UIColor *)color addBrightness:(float)b
 {
-    return 0;
-}
-
-#pragma mark - Color from Library
-
-+ (UIColor *)colorWithName:(NSString *)colorString
-{
-    
-    NSArray *library = [[NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:COLOR_LIBRARY_FILENAME ofType:@"txt"] encoding:NSASCIIStringEncoding error:nil] componentsSeparatedByString:@"\n"];
-    
-    int c = 0;
-    int index;
-    do {
-        NSArray *names = [[library objectAtIndex:c] componentsSeparatedByString:@"//"];   
-        if ([[[names objectAtIndex:1] uppercaseString] isEqualToString:[colorString uppercaseString]]) {
-            index = c;
-        }
-        c++;
-    } while (c != [library count]);
-    
-    NSArray *values = [[library objectAtIndex:index] componentsSeparatedByString:@"//"];
-    switch (COLOR_LIBRARY_VALUE_TYPE) {
-        case 1:
-            return [JCColor colorWithRGB:[values objectAtIndex:0]];
-            break;
-        case 2:
-            return [JCColor colorWithHSB:[values objectAtIndex:0]];
-            break;
-        case 3:
-            return [JCColor colorWithHEX:[values objectAtIndex:0]];
-            break;
-        default:
-            break;
-    }
     return 0;
 }
 
